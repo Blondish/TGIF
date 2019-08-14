@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+
+    <!-- Optional theme -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="/CSS files/stylingTGIF.css" />
+
+    <title>Senate Data Page</title>
+
+    <style></style>
+  </head>
+
+  <body>
+    <!-- Logo section -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-2 text-right">
+          <img
+            src="/images/eip-logo.jpg"
+            alt="TGIF logo"
+            width="150px"
+            height="100px"
+          />
+        </div>
+        <div class="col-sm-8 text-center">
+          <h1>Transparent Government in Fact</h1>
+        </div>
+        <div class="col-sm-2 emailstyling">
+          <a href="mailto:info@tgif.net"> info@tgif.net</a>
+        </div>
+      </div>
+      <!-- Navbar section -->
+      <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            
+            <div class="navbar-header">
+              <button
+                type="button"
+                class="navbar-toggle collapsed"
+                data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1"
+                aria-expanded="false"
+              >
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/home-starter-page.html">HOME</a>
+            </div>
+  
+            
+            <div
+              class="collapse navbar-collapse"
+              id="bs-example-navbar-collapse-1"
+            >
+              <ul class="nav navbar-nav">
+                  <li class="dropdown">
+                      <a
+                        href="#"
+                        class="dropdown-toggle"
+                        data-toggle="dropdown"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        >Congress 13 <span class="caret"></span
+                      ></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/house-starter-page.html">House</a></li>
+                        <li><a href="/senate_data.html">Senate</a></li>
+                      </ul>
+                    </li>
+                <li class="dropdown">
+                  <a
+                    href="#"
+                    class="dropdown-toggle"
+                    data-toggle="dropdown"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    >Attendance <span class="caret"></span
+                  ></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/senate-attendance-starter-page.html">House</a></li>
+                    <li><a href="/house-attendance-starter-page.html">Senate</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                    <a
+                      href="#"
+                      class="dropdown-toggle"
+                      data-toggle="dropdown"
+                      role="button"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      >Loyalty <span class="caret"></span
+                    ></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="/senate-party-loyalty-starter-page.html">House</a></li>
+                      <li><a href="/house-party-loyalty-starter-page.html">Senate</a></li>
+                    </ul>
+                  </li>
+              </ul>
+            </div>
+           
+          </div>
+          
+        </nav>
+
+      <header>
+        <div></div>
+      </header>
+
+      <!-- Description -->
+      <div>
+        <div class=" row page-header">
+          <div class="col-sm-8">
+            <h2>Senators</h2>
+            <p class>
+              First convened in 1789, the composition and powers of the Senate
+              are established in Article One of the U.S. Constitution. Each
+              state is represented by two senators, regardless of population,
+              who serve staggered six-year terms. The Senate has several
+              exclusive powers not granted to the House, including consenting to
+              treaties as a precondition to their ratification and consenting to
+              or confirming appointments of Cabinet secretaries, federal judges,
+              other federal executive officials, military officers, regulatory
+              officials, ambassadors, and other federal uniformed officers, as
+              well as trial of federal officials impeached by the House.
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="col-sm-2">Filtered by Party</div>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <input type="checkbox" aria-label="..." />
+                <label for=""> Republican</label>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <input type="checkbox" aria-label="..." />
+                <label for="">Democrat</label>
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <div class="input-group">
+                <input type="checkbox" aria-label="..." />
+                <label for="">Independent</label>
+              </div>
+            </div>
+            <div class="col-sm-2">
+                Filtered by State
+              </div>
+              <div class="col-sm-2">
+                <inpit action="filter" name="filter"></input>
+              </div>
+          </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Table data -->
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Full Name</th>
+                <th>Party</th>
+                <th>State</th>
+                <th>Seniority</th>
+                <th>% of votes</th>
+              </tr>
+            </thead>
+            <tbody id="senate_data"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel text-center">
+        <footer>
+          <p>&copy; 2019 TGIF || All Rights Reserved</p>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- interal script tags -->
+
+    <script src=".//JS_files/pro-Congress-113-senate.js"></script>
+    <script src=".//JS_files/senatetable.js"></script>
+  </body>
+</html>

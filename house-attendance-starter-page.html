@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+
+    <!-- Optional theme -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="/CSS files/stylingTGIF.css" />
+    <title>Home Page</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- navbar section -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1"
+              aria-expanded="false"
+            >
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/home-starter-page.html">HOME</a>
+          </div>
+
+          <div
+            class="collapse navbar-collapse"
+            id="bs-example-navbar-collapse-1"
+          >
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  >Congress 13 <span class="caret"></span
+                ></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/house-starter-page.html">House</a></li>
+                  <li><a href="/senate_data.html">Senate</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  >Attendance <span class="caret"></span
+                ></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="/senate-attendance-starter-page.html">House</a>
+                  </li>
+                  <li>
+                    <a href="/house-attendance-starter-page.html">Senate</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  >Loyalty <span class="caret"></span
+                ></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="/senate-party-loyalty-starter-page.html">House</a>
+                  </li>
+                  <li>
+                    <a href="/house-party-loyalty-starter-page.html">Senate</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <header>
+        <div></div>
+      </header>
+      <!--Table container-->
+      <div>
+        <h2>Attendance</h2>
+        <p>
+          The Constitution specifies that a majority of members constitutes a
+          quorum to do business in each house. Representatives and senators
+          rarely force the presence of a quorum by demanding quorum calls; thus,
+          in most cases, debates continue even if a majority is not present.
+        </p>
+
+        <p>
+          The Senate uses roll-call votes; a clerk calls out the names of all
+          the senators, each senator stating "aye" or "no" when his or her name
+          is announced. The House reserves roll-call votes for the most formal
+          matters, as a roll-call of all 435 representatives takes quite some
+          time; normally, members vote by electronic device. In the case of a
+          tie, the motion in question fails. In the Senate, the Vice President
+          may (if present) cast the tiebreaking vote.
+        </p>
+
+        <h2>Senate at a glance</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Party</th>
+              <th>Number of Reps</th>
+              <th>% Voted with Prty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Republican</td>
+              <td id="repAtt">--</td>
+              <td id="repLoyal">--</td>
+            </tr>
+            <tr>
+              <td>Democrat</td>
+              <td id="demAtt">--</td>
+              <td id="demLoyal">--</td>
+            </tr>
+            <tr>
+              <td>Independent</td>
+              <td id="indAtt">--</td>
+              <td id="indLoyal">--</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Least Engaged (Bottom 10% Attendance)</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Number of Missed Votes</th>
+              <th>% Missed</th>
+            </tr>
+          </thead>
+          <tbody id="least_engaged"></tbody>
+        </table>
+
+        <h2>Most Engaged (Top 10% Attendance)</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Number of Missed Votes</th>
+              <th>% Missed</th>
+            </tr>
+          </thead>
+          <tbody id="most_engaged"></tbody>
+        </table>
+      </div>
+
+      <!-- Latest compiled and minified JavaScript -->
+      <script
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"
+      ></script>
+      <!-- Latest compiled and minified JavaScript -->
+      <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"
+      ></script>
+
+      <script src="JS_files/pro-Congress-113-senate.js"></script>
+      <script src="/JS_files/senate_attendance_stats.js"></script>
+    </div>
+  </body>
+</html>
