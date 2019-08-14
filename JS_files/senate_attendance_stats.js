@@ -85,6 +85,7 @@ demAtt.innerHTML = statistics.Democrats.attendance;
 demLoyal.innerHTML = statistics.Democrats.loyal_votes;
 indAtt.innerHTML = statistics.Independents.attendance;
 indLoyal.innerHTML = statistics.Independents.loyal_votes;
+Total.innerHTML = statistics.Total;
 
 //Top Engaged Attendance Senate
 
