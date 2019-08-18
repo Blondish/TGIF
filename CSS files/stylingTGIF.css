@@ -1,22 +1,53 @@
+html,
+body {
+  height: 100%;
+}
 body {
   font-size: 1.7em;
+  background-image: url("/images/photo-1530747356781-637022baf256.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+div.container {
+  background-color: azure;
+  opacity: 0.9;
+}
+
+img {
+  max-height: 450px;
 }
 
 h1 {
-  font-size: 2.7em;
+  font-size: 3.7em;
+  font-family: "Londrina Outline", cursive;
+  font-weight: bolder;
+  color: #0b70aa;
 }
 
-.emailstyling {
-  text-align: end;
+nav div {
+  background-color: #c0575f;
+  border-radius: 5px;
 }
 
-.emailstyling a {
-  color: gray;
-  font-size: 1.3em;
+.navbar-brand,
+.navbar-default .navbar-nav > li > a {
+  color: #3b3e34;
+  font-size: 1.2em;
+}
+
+p {
+  text-align: justify;
+  margin: 0 20px;
 }
 
 footer {
   margin-top: 30px;
+  background-color: #c0575f;
+  border-radius: 5px;
+  padding: 14px 0px;
+  margin-bottom: 0;
 }
 
 .hidden {
