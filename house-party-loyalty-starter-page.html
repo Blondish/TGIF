@@ -135,11 +135,10 @@
       </div>
     </nav>
 
-    <header>
-      <div></div>
-    </header>
+   
     <!--Table container-->
-    <div>
+    <div class="row">
+      <div class="col-lg-6">
       <h2>Party Loyalty</h2>
       <p>
         Those who consider themselves to be strong partisans, strong Democrats
@@ -147,9 +146,10 @@
         voting for their party's nominee for office and legislation that backs
         their party's agenda.
       </p>
-
+    </div>
+    <div class="col-lg-6">
       <h2>House at a glance</h2>
-      <table>
+      <table class="table table-striped table-bordered table-hover">
         <thead>
           <tr>
             <th>Party</th>
@@ -179,9 +179,10 @@
             </tr>
         </tbody>
       </table>
-
+    </div>
+    <div class="col-lg-6">
       <h2>Least Loyal (Bottom 10% of Party)</h2>
-      <table>
+      <table class="table table-striped table-bordered table-hover">
         <thead>
           <tr>
             <th>Name</th>
@@ -191,9 +192,10 @@
         </thead>
         <tbody id="least_loyal"></tbody>
       </table>
-
+    </div>
+    <div class="col-lg-6">
       <h2>Most Loyal (Top 10% of Party)</h2>
-      <table>
+      <table class="table table-striped table-bordered table-hover">
         <thead>
           <tr>
             <th>Name</th>
@@ -206,12 +208,15 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    </div>
       <div class="panel text-center">
         <footer>
           <span>&copy; 2019 TGIF || All Rights Reserved</span>
         </footer>
       </div>
     </div>
+    
     <!-- Latest compiled and minified JavaScript -->
     <script
     src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

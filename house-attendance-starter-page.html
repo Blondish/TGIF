@@ -136,84 +136,91 @@
         </div>
       </nav>
 
-      <header>
-        <div></div>
-      </header>
-      <!--Table container-->
       <div>
-        <h2>Attendance</h2>
-        <p>
-          The Constitution specifies that a majority of members constitutes a
-          quorum to do business in each house. Representatives and senators
-          rarely force the presence of a quorum by demanding quorum calls; thus,
-          in most cases, debates continue even if a majority is not present.
-        </p>
+        <div class="row table-responsive">
+          <div class="col-lg-6">
+            <h2>Attendance</h2>
+            <p>
+              The Constitution specifies that a majority of members constitutes
+              a quorum to do business in each house. Representatives and
+              senators rarely force the presence of a quorum by demanding quorum
+              calls; thus, in most cases, debates continue even if a majority is
+              not present.
+            </p>
 
-        <p>
-          The Senate uses roll-call votes; a clerk calls out the names of all
-          the senators, each senator stating "aye" or "no" when his or her name
-          is announced. The House reserves roll-call votes for the most formal
-          matters, as a roll-call of all 435 representatives takes quite some
-          time; normally, members vote by electronic device. In the case of a
-          tie, the motion in question fails. In the Senate, the Vice President
-          may (if present) cast the tiebreaking vote.
-        </p>
-
-        <h2>House at a glance</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Party</th>
-              <th>Number of Reps</th>
-              <th>% Voted with Prty</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Republican</td>
-              <td id="repAtt">--</td>
-              <td id="repLoyal">--</td>
-            </tr>
-            <tr>
-              <td>Democrat</td>
-              <td id="demAtt">--</td>
-              <td id="demLoyal">--</td>
-            </tr>
-            <tr>
-              <td>Independent</td>
-              <td id="indAtt">--</td>
-              <td id="indLoyal">--</td>
-            </tr>
-            <tr>
-              <td>Total</td>
-              <td id="Total">Total</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h2>Least Engaged (Bottom 10% Attendance)</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Number of Missed Votes</th>
-              <th>% Missed</th>
-            </tr>
-          </thead>
-          <tbody id="least_engaged"></tbody>
-        </table>
-
-        <h2>Most Engaged (Top 10% Attendance)</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Number of Missed Votes</th>
-              <th>% Missed</th>
-            </tr>
-          </thead>
-          <tbody id="most_engaged"></tbody>
-        </table>
+            <p>
+              The Senate uses roll-call votes; a clerk calls out the names of
+              all the senators, each senator stating "aye" or "no" when his or
+              her name is announced. The House reserves roll-call votes for the
+              most formal matters, as a roll-call of all 435 representatives
+              takes quite some time; normally, members vote by electronic
+              device. In the case of a tie, the motion in question fails. In the
+              Senate, the Vice President may (if present) cast the tiebreaking
+              vote.
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <h2>House at a glance</h2>
+            <table class="table table-striped table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Party</th>
+                  <th>Number of Reps</th>
+                  <th>% Voted with Prty</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Republican</td>
+                  <td id="repAtt">--</td>
+                  <td id="repLoyal">--</td>
+                </tr>
+                <tr>
+                  <td>Democrat</td>
+                  <td id="demAtt">--</td>
+                  <td id="demLoyal">--</td>
+                </tr>
+                <tr>
+                  <td>Independent</td>
+                  <td id="indAtt">--</td>
+                  <td id="indLoyal">--</td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td id="Total">Total</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <h2>Least Engaged (Bottom 10% Attendance)</h2>
+            <table class="table table-striped table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Number of Missed Votes</th>
+                  <th>% Missed</th>
+                </tr>
+              </thead>
+              <tbody id="least_engaged"></tbody>
+            </table>
+          </div>
+          <div class="col-lg-6">
+            <h2>Most Engaged (Top 10% Attendance)</h2>
+            <table class="table table-striped table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Number of Missed Votes</th>
+                  <th>% Missed</th>
+                </tr>
+              </thead>
+              <tbody id="most_engaged"></tbody>
+            </table>
+          </div>
+        </div>
         <div class="panel text-center">
           <footer>
             <span>&copy; 2019 TGIF || All Rights Reserved</span>
