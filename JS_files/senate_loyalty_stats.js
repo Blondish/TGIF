@@ -28,7 +28,6 @@ function getNumberOfAttendance(array) {
   var repList = [];
   var demList = [];
   var indList = [];
-  var Total = 0;
 
   for (var i = 0; i < array.length; i++) {
     if (array[i].party == "R") {
@@ -43,6 +42,8 @@ function getNumberOfAttendance(array) {
   statistics.Democrats.attendance = demList.length;
   statistics.Independents.attendance = indList.length;
   statistics.Total = repList.length + demList.length + indList.length;
+
+  console.log(Total);
 }
 
 getVotesWParty(members);
@@ -50,7 +51,6 @@ function getVotesWParty(array) {
   var repVotes = [];
   var demVotes = [];
   var indVotes = [];
-  var TotalPercentage = 0;
 
   repSum = 0;
   demSum = 0;
@@ -81,6 +81,7 @@ function getVotesWParty(array) {
   statistics.Republicans.loyal_votes = repAverage.toFixed(2);
   statistics.Democrats.loyal_votes = demAverage.toFixed(2);
   statistics.Independents.loyal_votes = indAverage.toFixed(2);
+  statistics.TotalPercentage = Average.toFixed(2);
 }
 
 repAtt.innerHTML = statistics.Republicans.attendance;
@@ -89,6 +90,8 @@ demAtt.innerHTML = statistics.Democrats.attendance;
 demLoyal.innerHTML = statistics.Democrats.loyal_votes;
 indAtt.innerHTML = statistics.Independents.attendance;
 indLoyal.innerHTML = statistics.Independents.loyal_votes;
+Total.innerHTML = statistics.Total;
+TotalPercentage.innerHTML = statistics.TotalPercentage;
 
 // Least Loyal with Party
 members.sort(compare);

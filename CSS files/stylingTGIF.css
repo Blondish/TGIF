@@ -26,6 +26,10 @@ h1 {
   color: #0b70aa;
 }
 
+div h1 {
+  padding: 20px;
+}
+
 nav div {
   background-color: #c0575f;
   border-radius: 5px;
@@ -42,6 +46,10 @@ p {
   margin: 0 20px;
 }
 
+.filters {
+  margin-top: 20px;
+}
+
 footer {
   margin-top: 30px;
   background-color: #c0575f;
@@ -56,4 +64,8 @@ footer {
 
 .visible {
   display: block;
+}
+
+div.col-lg-6 {
+  padding-bottom: 30px;
 }

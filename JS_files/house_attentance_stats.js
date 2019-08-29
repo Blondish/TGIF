@@ -2,7 +2,7 @@ var members = data.results[0].members;
 
 //Object
 
-var statistics2 = {
+var statistics = {
   Republicans: {
     attendance: 0,
     loyal_votes: 0
@@ -30,8 +30,6 @@ function getNumberOfAttendance(array) {
   var repList = [];
   var demList = [];
   var indList = [];
-  var Total = 0;
-  var TotalPercentage = 0;
 
   for (var i = 0; i < array.length; i++) {
     if (array[i].party == "R") {
@@ -43,14 +41,10 @@ function getNumberOfAttendance(array) {
     }
   }
 
-  statistics2.Republicans.attendance = repList.length;
-  statistics2.Democrats.attendance = demList.length;
-  statistics2.Independents.attendance = indList.length;
-  statistics2.Total = repList.length + demList.length + indList.length;
-
-  console.log(repList);
-  console.log(demList);
-  console.log(statistics2.Total);
+  statistics.Republicans.attendance = repList.length;
+  statistics.Democrats.attendance = demList.length;
+  statistics.Independents.attendance = indList.length;
+  statistics.Total = repList.length + demList.length + indList.length;
 }
 
 //House at a Glance - Loyalty
@@ -60,7 +54,6 @@ function getVotesWParty(array) {
   var repVotes = [];
   var demVotes = [];
   var indVotes = [];
-  var TotalPercentage = 0;
 
   repSum = 0;
   demSum = 0;
@@ -87,28 +80,22 @@ function getVotesWParty(array) {
     indAverage = 0;
   }
 
-  // for (const key in statistics2.TotalPercentage) {
-  //   if (isNaN(statistics2.TotalPercentage[key])) {
-  //     statistics2.TotalPercentage[key] = 0;
-  //   }
-  // }
-
   var Average = (repAverage + demAverage + indAverage) / 3;
 
-  statistics2.Republicans.loyal_votes = repAverage.toFixed(2);
-  statistics2.Democrats.loyal_votes = demAverage.toFixed(2);
-  statistics2.Independents.loyal_votes = indAverage.toFixed(2);
-  statistics2.TotalPercentage = Average.toFixed(2);
+  statistics.Republicans.loyal_votes = repAverage.toFixed(2);
+  statistics.Democrats.loyal_votes = demAverage.toFixed(2);
+  statistics.Independents.loyal_votes = indAverage.toFixed(2);
+  statistics.TotalPercentage = Average.toFixed(2);
 }
 
-repAtt.innerHTML = statistics2.Republicans.attendance;
-repLoyal.innerHTML = statistics2.Republicans.loyal_votes;
-demAtt.innerHTML = statistics2.Democrats.attendance;
-demLoyal.innerHTML = statistics2.Democrats.loyal_votes;
-indAtt.innerHTML = statistics2.Independents.attendance;
-indLoyal.innerHTML = statistics2.Independents.loyal_votes;
-Total.innerHTML = statistics2.Total;
-TotalPercentage.innerHTML = statistics2.TotalPercentage;
+repAtt.innerHTML = statistics.Republicans.attendance;
+repLoyal.innerHTML = statistics.Republicans.loyal_votes;
+demAtt.innerHTML = statistics.Democrats.attendance;
+demLoyal.innerHTML = statistics.Democrats.loyal_votes;
+indAtt.innerHTML = statistics.Independents.attendance;
+indLoyal.innerHTML = statistics.Independents.loyal_votes;
+Total.innerHTML = statistics.Total;
+TotalPercentage.innerHTML = statistics.TotalPercentage;
 
 //Top Engaged Attendance HOUSE
 
@@ -148,13 +135,13 @@ function Top(array) {
     TopEngaged.name = array[i].first_name + " " + array[i].last_name;
     TopEngaged.numOfMissedVotes = array[i].missed_votes;
     TopEngaged.percentOfMissedVotes = array[i].missed_votes_pct;
-    statistics2.TopEngaged.push(TopEngaged);
+    statistics.TopEngaged.push(TopEngaged);
   }
 }
 
 Top(mostEngaged);
 
-print2(statistics2.TopEngaged, "most_engaged");
+print2(statistics.TopEngaged, "most_engaged");
 
 function print2(array, id) {
   var tbody = document.getElementById(id);
@@ -191,7 +178,7 @@ function Bottom(array) {
     notEngaged.name = array[i].first_name + " " + array[i].last_name;
     notEngaged.numOfMissedVotes = array[i].missed_votes;
     notEngaged.percentOfMissedVotes = array[i].missed_votes_pct;
-    statistics2.BottomEngaged.push(notEngaged);
+    statistics.BottomEngaged.push(notEngaged);
   }
 }
 
@@ -212,4 +199,4 @@ function print2(array, id) {
   }
 }
 
-print2(statistics2.BottomEngaged, "least_engaged");
+print2(statistics.BottomEngaged, "least_engaged");

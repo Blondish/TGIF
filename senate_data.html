@@ -40,8 +40,8 @@
           <img
             src="/images/2ebc8c7e4ba80456b510c829a6444e72.png"
             alt="TGIF logo"
-            width="150px"
-            height="100px"
+            width="200px"
+            height="150px"
           />
         </div>
         <div class="col-sm-10 text-center">
@@ -163,8 +163,8 @@
         </div>
 
         <div class="row">
-          <div class="col-sm-12">
-            <div class="col-sm-2">Filtered by Party</div>
+          <div class="col-sm-12 filters">
+            <div class="col-sm-2">Filter by Party</div>
             <div class="col-sm-2">
               <div class="input-group">
                 <input id="repChecked" type="checkbox" aria-label="..." />
@@ -184,13 +184,6 @@
                 <label for="">Independent</label>
               </div>
             </div>
-            <div class="col-sm-2">
-              Filtered by State
-            </div>
-            <div class="col-sm-2">
-              <select action="filter" name="filter"> </select>
-              <label for="filter"></label>
-            </div>
           </div>
         </div>
         <!-- /.row -->
@@ -202,7 +195,13 @@
               <tr>
                 <th>Full Name</th>
                 <th>Party</th>
-                <th>State</th>
+                <th>
+                  State
+                  <div>
+                    <select action="filter" name="filter"> </select>
+                    <label for="filter"></label>
+                  </div>
+                </th>
                 <th>Seniority</th>
                 <th>% of votes</th>
               </tr>

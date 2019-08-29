@@ -2,7 +2,7 @@ var members = data.results[0].members;
 
 //Object
 
-var statistics2 = {
+var statistics = {
   Republicans: {
     attendance: 0,
     loyal_votes: 0
@@ -16,6 +16,7 @@ var statistics2 = {
     loyal_votes: 0
   },
   Total: 0,
+  TotalPercentage: 0,
   TopEngaged: [],
   BottomEngaged: [],
   LeastLoyal: [],
@@ -27,7 +28,6 @@ function getNumberOfAttendance(array) {
   var repList = [];
   var demList = [];
   var indList = [];
-  var Total = 0;
 
   for (var i = 0; i < array.length; i++) {
     if (array[i].party == "R") {
@@ -38,11 +38,13 @@ function getNumberOfAttendance(array) {
       indList.push(array[i].first_name + " " + array[i].last_name);
     }
   }
-  statistics2.Republicans.attendance = repList.length;
-  statistics2.Democrats.attendance = demList.length;
-  statistics2.Independents.attendance = indList.length;
-  statistics2.Total = repList.length + demList.length + indList.length;
+  statistics.Republicans.attendance = repList.length;
+  statistics.Democrats.attendance = demList.length;
+  statistics.Independents.attendance = indList.length;
+  statistics.Total = repList.length + demList.length + indList.length;
 }
+
+console.log(Total);
 
 getVotesWParty(members);
 function getVotesWParty(array) {
@@ -70,17 +72,27 @@ function getVotesWParty(array) {
   var demAverage = demSum / demVotes.length;
   var indAverage = indSum / indVotes.length;
 
-  statistics2.Republicans.loyal_votes = repAverage.toFixed(2);
-  statistics2.Democrats.loyal_votes = demAverage.toFixed(2);
-  statistics2.Independents.loyal_votes = indAverage.toFixed(2);
+  if (isNaN(indAverage)) {
+    indAverage = 0;
+  }
+
+  var Average = (repAverage + demAverage + indAverage) / 3;
+  console.log(Average);
+
+  statistics.Republicans.loyal_votes = repAverage.toFixed(2);
+  statistics.Democrats.loyal_votes = demAverage.toFixed(2);
+  statistics.Independents.loyal_votes = indAverage.toFixed(2);
+  statistics.TotalPercentage = Average.toFixed(2);
 }
 
-repAtt.innerHTML = statistics2.Republicans.attendance;
-repLoyal.innerHTML = statistics2.Republicans.loyal_votes;
-demAtt.innerHTML = statistics2.Democrats.attendance;
-demLoyal.innerHTML = statistics2.Democrats.loyal_votes;
-indAtt.innerHTML = statistics2.Independents.attendance;
-indLoyal.innerHTML = statistics2.Independents.loyal_votes;
+repAtt.innerHTML = statistics.Republicans.attendance;
+repLoyal.innerHTML = statistics.Republicans.loyal_votes;
+demAtt.innerHTML = statistics.Democrats.attendance;
+demLoyal.innerHTML = statistics.Democrats.loyal_votes;
+indAtt.innerHTML = statistics.Independents.attendance;
+indLoyal.innerHTML = statistics.Independents.loyal_votes;
+Total.innerHTML = statistics.Total;
+TotalPercentage.innerHTML = statistics.TotalPercentage;
 
 // Least Loyal with Party
 members.sort(compare);
@@ -117,13 +129,13 @@ function notLoyal(array) {
     leastLoyalobj.name = array[i].first_name + " " + array[i].last_name;
     leastLoyalobj.totalVotes = array[i].total_votes;
     leastLoyalobj.voteswithparty = array[i].votes_with_party_pct;
-    statistics2.LeastLoyal.push(leastLoyalobj);
+    statistics.LeastLoyal.push(leastLoyalobj);
   }
 }
 
 notLoyal(leastLoyal);
 
-print2(statistics2.LeastLoyal, "least_loyal");
+print2(statistics.LeastLoyal, "least_loyal");
 
 function print2(array, id) {
   var tbody = document.getElementById(id);
@@ -157,8 +169,8 @@ function veryLoyal(array) {
     mostLoyalobj.name = array[i].first_name + " " + array[i].last_name;
     mostLoyalobj.totalVotes = array[i].total_votes;
     mostLoyalobj.voteswithparty = array[i].votes_with_party_pct;
-    statistics2.MostLoyal.push(mostLoyalobj);
+    statistics.MostLoyal.push(mostLoyalobj);
   }
 }
 
-print2(statistics2.MostLoyal, "most_loyal");
+print2(statistics.MostLoyal, "most_loyal");

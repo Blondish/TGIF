@@ -57,50 +57,33 @@ function checkedTable() {
       Dchecked == false &&
       Rchecked == false &&
       Ichecked == false &&
-      selectedValue === "ALL"
+      (selectedValue === "ALL" || selectedValue == myarr[i].state)
     ) {
       checkedArray.push(myarr[i]);
     }
     if (
-      Dchecked == false &&
-      Rchecked == false &&
-      Ichecked == false &&
-      selectedValue == myarr[i].state
-    ) {
-      checkedArray.push(myarr[i]);
-    }
-    if (Rchecked == true && myarr[i].party == "R" && selectedValue === "ALL") {
-      checkedArray.push(myarr[i]);
-    }
-    if (
-      Rchecked == true &&
+      Rchecked &&
       myarr[i].party == "R" &&
-      selectedValue == myarr[i].state
+      (selectedValue === "ALL" || selectedValue == myarr[i].state)
     ) {
-      checkedArray.push(myarr[i]);
-    }
-    if (Dchecked == true && myarr[i].party == "D" && selectedValue === "ALL") {
       checkedArray.push(myarr[i]);
     }
     if (
       Dchecked == true &&
       myarr[i].party == "D" &&
-      selectedValue == myarr[i].state
+      (selectedValue === "ALL" || selectedValue == myarr[i].state)
     ) {
-      checkedArray.push(myarr[i]);
-    }
-    if (Ichecked == true && myarr[i].party == "I" && selectedValue === "ALL") {
       checkedArray.push(myarr[i]);
     }
     if (
       Ichecked == true &&
       myarr[i].party == "I" &&
-      selectedValue == myarr[i].state
+      (selectedValue === "ALL" || selectedValue == myarr[i].state)
     ) {
       checkedArray.push(myarr[i]);
     }
-    printTable(checkedArray, "house_data");
   }
+  printTable(checkedArray, "house_data");
 }
 
 //State Labels Creation
