@@ -129,7 +129,7 @@ function print2(array, id) {
   var tbody = document.getElementById(id);
   for (var i = 0; i < array.length; i++) {
     let row = document.createElement("tr");
-    row.insertCell().innerHTML = array[i].name;
+    row.insertCell().innerHTML = array[i].name.link(array[i].url);
     row.insertCell().innerHTML = array[i].totalVotes;
     row.insertCell().innerHTML = array[i].voteswithparty;
     tbody.append(row);

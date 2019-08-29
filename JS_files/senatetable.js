@@ -4,7 +4,7 @@ printTable(myarr, "senate_data");
 
 function printTable(array, id) {
   var tbody = document.getElementById(id);
-
+  tbody.innerHTML = "";
   for (var i = 0; i < array.length; i++) {
     let row = document.createElement("tr");
     let nameCell = document.createElement("td");
@@ -27,6 +27,99 @@ function printTable(array, id) {
     tbody.append(row);
   }
 }
+
+// CheckBoxes Filtes
+
+document.getElementById("repChecked").addEventListener("click", function() {
+  checkedTable();
+});
+document.getElementById("demChecked").addEventListener("click", function() {
+  checkedTable();
+});
+document.getElementById("indChecked").addEventListener("click", function() {
+  checkedTable();
+});
+
+document.querySelector("select").addEventListener("change", function() {
+  checkedTable();
+});
+
+function checkedTable() {
+  var checkedArray = [];
+  var Rchecked = document.getElementById("repChecked").checked;
+  var Dchecked = document.getElementById("demChecked").checked;
+  var Ichecked = document.getElementById("indChecked").checked;
+  var selectedValue = document.querySelector("select").value;
+
+  for (var i = 0; i < myarr.length; i++) {
+    if (
+      Dchecked == false &&
+      Rchecked == false &&
+      Ichecked == false &&
+      selectedValue === "ALL"
+    ) {
+      checkedArray.push(myarr[i]);
+    }
+    if (
+      Dchecked == false &&
+      Rchecked == false &&
+      Ichecked == false &&
+      selectedValue == myarr[i].state
+    ) {
+      checkedArray.push(myarr[i]);
+    }
+    if (Rchecked == true && myarr[i].party == "R" && selectedValue === "ALL") {
+      checkedArray.push(myarr[i]);
+    }
+    if (
+      Rchecked == true &&
+      myarr[i].party == "R" &&
+      selectedValue == myarr[i].state
+    ) {
+      checkedArray.push(myarr[i]);
+    }
+    if (Dchecked == true && myarr[i].party == "D" && selectedValue === "ALL") {
+      checkedArray.push(myarr[i]);
+    }
+    if (
+      Dchecked == true &&
+      myarr[i].party == "D" &&
+      selectedValue == myarr[i].state
+    ) {
+      checkedArray.push(myarr[i]);
+    }
+    if (Ichecked == true && myarr[i].party == "I" && selectedValue === "ALL") {
+      checkedArray.push(myarr[i]);
+    }
+    if (
+      Ichecked == true &&
+      myarr[i].party == "I" &&
+      selectedValue == myarr[i].state
+    ) {
+      checkedArray.push(myarr[i]);
+    }
+    printTable(checkedArray, "senate_data");
+  }
+}
+
+//State Labels Creation
+
+var stateOption = [];
+for (var i = 0; i < myarr.length; i++) {
+  if (!stateOption.includes(myarr[i].state)) stateOption.push(myarr[i].state);
+}
+
+stateOption.sort().unshift("ALL");
+
+function addState(array) {
+  var select = document.querySelector("select");
+  for (var i = 0; i < array.length; i++) {
+    let newOption = document.createElement("option");
+    newOption.innerHTML = array[i];
+    select.append(newOption);
+  }
+}
+addState(stateOption);
 
 // print2(myarr, "senate_data");
 

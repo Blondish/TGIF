@@ -16,8 +16,11 @@ var statistics2 = {
     loyal_votes: 0
   },
   Total: 0,
+  TotalPercentage: 0,
   TopEngaged: [],
-  BottomEngaged: []
+  BottomEngaged: [],
+  LeastLoyal: [],
+  MostLoyal: []
 };
 
 //House  at a Glance - Attendance
@@ -28,6 +31,7 @@ function getNumberOfAttendance(array) {
   var demList = [];
   var indList = [];
   var Total = 0;
+  var TotalPercentage = 0;
 
   for (var i = 0; i < array.length; i++) {
     if (array[i].party == "R") {
@@ -56,6 +60,7 @@ function getVotesWParty(array) {
   var repVotes = [];
   var demVotes = [];
   var indVotes = [];
+  var TotalPercentage = 0;
 
   repSum = 0;
   demSum = 0;
@@ -78,9 +83,22 @@ function getVotesWParty(array) {
   var demAverage = demSum / demVotes.length;
   var indAverage = indSum / indVotes.length;
 
+  if (isNaN(indAverage)) {
+    indAverage = 0;
+  }
+
+  // for (const key in statistics2.TotalPercentage) {
+  //   if (isNaN(statistics2.TotalPercentage[key])) {
+  //     statistics2.TotalPercentage[key] = 0;
+  //   }
+  // }
+
+  var Average = (repAverage + demAverage + indAverage) / 3;
+
   statistics2.Republicans.loyal_votes = repAverage.toFixed(2);
   statistics2.Democrats.loyal_votes = demAverage.toFixed(2);
   statistics2.Independents.loyal_votes = indAverage.toFixed(2);
+  statistics2.TotalPercentage = Average.toFixed(2);
 }
 
 repAtt.innerHTML = statistics2.Republicans.attendance;
@@ -90,6 +108,7 @@ demLoyal.innerHTML = statistics2.Democrats.loyal_votes;
 indAtt.innerHTML = statistics2.Independents.attendance;
 indLoyal.innerHTML = statistics2.Independents.loyal_votes;
 Total.innerHTML = statistics2.Total;
+TotalPercentage.innerHTML = statistics2.TotalPercentage;
 
 //Top Engaged Attendance HOUSE
 
@@ -111,7 +130,7 @@ console.log(members.sort(compare));
 var percentage = Math.round(members.length * 0.1);
 var mostEngaged = members.slice(0, percentage);
 
-for (var i = 0; i < members.length; i++) {
+for (var i = percentage; i < members.length; i++) {
   if (
     mostEngaged[mostEngaged.length - 1].missed_votes_pct ==
     members[i].missed_votes_pct
@@ -141,7 +160,7 @@ function print2(array, id) {
   var tbody = document.getElementById(id);
   for (var i = 0; i < array.length; i++) {
     let row = document.createElement("tr");
-    row.insertCell().innerHTML = array[i].name;
+    row.insertCell().innerHTML = array[i].name.link(array[i].url);
     row.insertCell().innerHTML = array[i].numOfMissedVotes;
     row.insertCell().innerHTML = array[i].percentOfMissedVotes;
 
@@ -156,7 +175,7 @@ var leastEngaged = members.slice(0, percentage);
 
 console.log(leastEngaged);
 
-for (var i = 0; i < members.length; i++) {
+for (var i = percentage; i < members.length; i++) {
   if (
     leastEngaged[leastEngaged.length - 1].missed_votes_pct ==
     members[i].missed_votes_pct
@@ -185,7 +204,7 @@ function print2(array, id) {
   var tbody = document.getElementById(id);
   for (var i = 0; i < array.length; i++) {
     let row = document.createElement("tr");
-    row.insertCell().innerHTML = array[i].name;
+    row.insertCell().innerHTML = array[i].name.link(array[i].url);
     row.insertCell().innerHTML = array[i].numOfMissedVotes;
     row.insertCell().innerHTML = array[i].percentOfMissedVotes;
 

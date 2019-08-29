@@ -16,6 +16,7 @@ var statistics = {
     loyal_votes: 0
   },
   Total: 0,
+  TotalPercentage: 0,
   TopEngaged: [],
   BottomEngaged: [],
   LeastLoyal: [],
@@ -49,6 +50,7 @@ function getVotesWParty(array) {
   var repVotes = [];
   var demVotes = [];
   var indVotes = [];
+  var TotalPercentage = 0;
 
   repSum = 0;
   demSum = 0;
@@ -69,6 +71,12 @@ function getVotesWParty(array) {
   var repAverage = repSum / repVotes.length;
   var demAverage = demSum / demVotes.length;
   var indAverage = indSum / indVotes.length;
+
+  if (isNaN(indAverage)) {
+    indAverage = 0;
+  }
+
+  var Average = (repAverage + demAverage + indAverage) / 3;
 
   statistics.Republicans.loyal_votes = repAverage.toFixed(2);
   statistics.Democrats.loyal_votes = demAverage.toFixed(2);
@@ -129,7 +137,7 @@ function print2(array, id) {
   var tbody = document.getElementById(id);
   for (var i = 0; i < array.length; i++) {
     let row = document.createElement("tr");
-    row.insertCell().innerHTML = array[i].name;
+    row.insertCell().innerHTML = array[i].name.link(array[i].url);
     row.insertCell().innerHTML = array[i].totalVotes;
     row.insertCell().innerHTML = array[i].voteswithparty;
     tbody.append(row);
