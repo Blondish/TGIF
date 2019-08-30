@@ -1,4 +1,43 @@
-var members = data.results[0].members;
+//var members = data.results[0].members;
+
+var myarr;
+loadAll();
+function loadAll() {
+  showSpinner();
+  fetch("https://api.propublica.org/congress/v1/113/house/members.json?", {
+    method: "GET",
+    headers: {
+      "X-API-Key": "ao9dys0RxhnQWbgv5iCTWrBcKV1l2C3VmgG1sUZV"
+    }
+  })
+    .then(function(responce) {
+      console.log(responce);
+      return responce.json();
+    })
+    .then(function(print) {
+      myarr = print.results[0].members;
+      getNumberOfAttendance(myarr);
+      getVotesWParty(myarr);
+      Least_Loyal_House();
+      Most_Loyal_House();
+      print2(statistics.LeastLoyal, "least_loyal");
+      print2(statistics.MostLoyal, "most_loyal");
+      print_Glance_Table();
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+}
+
+function showSpinner() {
+  var spinner = document.getElementById("spinner");
+  console.log(spinner);
+  spinner.classList.add("show");
+  setTimeout(() => {
+    spinner.classList.remove("show");
+    // spinner.className = spinner.className.replace("show", "");
+  }, 2000);
+}
 
 //Object
 
@@ -23,7 +62,7 @@ var statistics = {
   MostLoyal: []
 };
 
-getNumberOfAttendance(members);
+//getNumberOfAttendance(members);
 function getNumberOfAttendance(array) {
   var repList = [];
   var demList = [];
@@ -46,7 +85,7 @@ function getNumberOfAttendance(array) {
 
 console.log(Total);
 
-getVotesWParty(members);
+//getVotesWParty(members);
 function getVotesWParty(array) {
   var repVotes = [];
   var demVotes = [];
@@ -85,19 +124,20 @@ function getVotesWParty(array) {
   statistics.TotalPercentage = Average.toFixed(2);
 }
 
-repAtt.innerHTML = statistics.Republicans.attendance;
-repLoyal.innerHTML = statistics.Republicans.loyal_votes;
-demAtt.innerHTML = statistics.Democrats.attendance;
-demLoyal.innerHTML = statistics.Democrats.loyal_votes;
-indAtt.innerHTML = statistics.Independents.attendance;
-indLoyal.innerHTML = statistics.Independents.loyal_votes;
-Total.innerHTML = statistics.Total;
-TotalPercentage.innerHTML = statistics.TotalPercentage;
+function print_Glance_Table() {
+  repAtt.innerHTML = statistics.Republicans.attendance;
+  repLoyal.innerHTML = statistics.Republicans.loyal_votes;
+  demAtt.innerHTML = statistics.Democrats.attendance;
+  demLoyal.innerHTML = statistics.Democrats.loyal_votes;
+  indAtt.innerHTML = statistics.Independents.attendance;
+  indLoyal.innerHTML = statistics.Independents.loyal_votes;
+  Total.innerHTML = statistics.Total;
+  TotalPercentage.innerHTML = statistics.TotalPercentage;
+}
 
 // Least Loyal with Party
-members.sort(compare);
 function compare(a, b) {
-  for (var i = 0; i < members.length; i++) {
+  for (var i = 0; i < myarr.length; i++) {
     if (a.votes_with_party_pct < b.votes_with_party_pct) {
       return -1;
     }
@@ -108,34 +148,36 @@ function compare(a, b) {
   }
 }
 
-members.sort(compare);
+function Least_Loyal_House() {
+  myarr.sort(compare);
 
-var percentage = Math.round(members.length * 0.1);
-var leastLoyal = members.slice(0, percentage);
+  var percentage = Math.round(myarr.length * 0.1);
+  var leastLoyal = myarr.slice(0, percentage);
 
-for (var i = percentage; i < members.length; i++) {
-  if (
-    leastLoyal[leastLoyal.length - 1].votes_with_party_pct ==
-    members[i].votes_with_party_pct
-  ) {
-    leastLoyal.push(members[i]);
+  for (var i = percentage; i < myarr.length; i++) {
+    if (
+      leastLoyal[leastLoyal.length - 1].votes_with_party_pct ==
+      myarr[i].votes_with_party_pct
+    ) {
+      leastLoyal.push(myarr[i]);
+    }
   }
+
+  function notLoyal(array) {
+    for (var i = 0; i < array.length; i++) {
+      var leastLoyalobj = {};
+
+      leastLoyalobj.name = array[i].first_name + " " + array[i].last_name;
+      leastLoyalobj.totalVotes = array[i].total_votes;
+      leastLoyalobj.voteswithparty = array[i].votes_with_party_pct;
+      statistics.LeastLoyal.push(leastLoyalobj);
+    }
+  }
+
+  notLoyal(leastLoyal);
 }
 
-function notLoyal(array) {
-  for (var i = 0; i < array.length; i++) {
-    var leastLoyalobj = {};
-
-    leastLoyalobj.name = array[i].first_name + " " + array[i].last_name;
-    leastLoyalobj.totalVotes = array[i].total_votes;
-    leastLoyalobj.voteswithparty = array[i].votes_with_party_pct;
-    statistics.LeastLoyal.push(leastLoyalobj);
-  }
-}
-
-notLoyal(leastLoyal);
-
-print2(statistics.LeastLoyal, "least_loyal");
+//print2(statistics.LeastLoyal, "least_loyal");
 
 function print2(array, id) {
   var tbody = document.getElementById(id);
@@ -148,29 +190,33 @@ function print2(array, id) {
   }
 }
 // Most Loyal with Party
-members.sort(compare).reverse();
-var mostLoyal = members.slice(0, percentage);
 
-for (var i = percentage; i < members.length; i++) {
-  if (
-    mostLoyal[mostLoyal.length - 1].votes_with_party_pct ==
-    members[i].votes_with_party_pct
-  ) {
-    mostLoyal.push(members[i]);
+function Most_Loyal_House() {
+  myarr.sort(compare).reverse();
+  var percentage = Math.round(myarr.length * 0.1);
+  var mostLoyal = myarr.slice(0, percentage);
+
+  for (var i = percentage; i < myarr.length; i++) {
+    if (
+      mostLoyal[mostLoyal.length - 1].votes_with_party_pct ==
+      myarr[i].votes_with_party_pct
+    ) {
+      mostLoyal.push(myarr[i]);
+    }
+  }
+
+  veryLoyal(mostLoyal);
+
+  function veryLoyal(array) {
+    for (var i = 0; i < array.length; i++) {
+      var mostLoyalobj = {};
+
+      mostLoyalobj.name = array[i].first_name + " " + array[i].last_name;
+      mostLoyalobj.totalVotes = array[i].total_votes;
+      mostLoyalobj.voteswithparty = array[i].votes_with_party_pct;
+      statistics.MostLoyal.push(mostLoyalobj);
+    }
   }
 }
 
-veryLoyal(mostLoyal);
-
-function veryLoyal(array) {
-  for (var i = 0; i < array.length; i++) {
-    var mostLoyalobj = {};
-
-    mostLoyalobj.name = array[i].first_name + " " + array[i].last_name;
-    mostLoyalobj.totalVotes = array[i].total_votes;
-    mostLoyalobj.voteswithparty = array[i].votes_with_party_pct;
-    statistics.MostLoyal.push(mostLoyalobj);
-  }
-}
-
-print2(statistics.MostLoyal, "most_loyal");
+// print2(statistics.MostLoyal, "most_loyal");

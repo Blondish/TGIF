@@ -1,4 +1,45 @@
-var members = data.results[0].members;
+//var myarr = data.results[0].myarr;
+
+var myarr;
+loadAll();
+function loadAll() {
+  showSpinner();
+  fetch("https://api.propublica.org/congress/v1/113/house/members.json?", {
+    method: "GET",
+    headers: {
+      "X-API-Key": "ao9dys0RxhnQWbgv5iCTWrBcKV1l2C3VmgG1sUZV"
+    }
+  })
+    .then(function(responce) {
+      console.log(responce);
+      return responce.json();
+    })
+    .then(function(print) {
+      myarr = print.results[0].members;
+      getNumberOfAttendance(myarr);
+      getVotesWParty(myarr);
+      print_Glance_Table();
+      Top_Engaged_Attendace_House();
+      Least_Engaged_Attendance_House();
+      print2(statistics.TopEngaged, "most_engaged");
+      print2(statistics.BottomEngaged, "least_engaged");
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+}
+
+//spinner function
+
+function showSpinner() {
+  var spinner = document.getElementById("spinner");
+  console.log(spinner);
+  spinner.classList.add("show");
+  setTimeout(() => {
+    spinner.classList.remove("show");
+    // spinner.className = spinner.className.replace("show", "");
+  }, 2000);
+}
 
 //Object
 
@@ -25,7 +66,6 @@ var statistics = {
 
 //House  at a Glance - Attendance
 
-getNumberOfAttendance(members);
 function getNumberOfAttendance(array) {
   var repList = [];
   var demList = [];
@@ -49,7 +89,6 @@ function getNumberOfAttendance(array) {
 
 //House at a Glance - Loyalty
 
-getVotesWParty(members);
 function getVotesWParty(array) {
   var repVotes = [];
   var demVotes = [];
@@ -88,20 +127,21 @@ function getVotesWParty(array) {
   statistics.TotalPercentage = Average.toFixed(2);
 }
 
-repAtt.innerHTML = statistics.Republicans.attendance;
-repLoyal.innerHTML = statistics.Republicans.loyal_votes;
-demAtt.innerHTML = statistics.Democrats.attendance;
-demLoyal.innerHTML = statistics.Democrats.loyal_votes;
-indAtt.innerHTML = statistics.Independents.attendance;
-indLoyal.innerHTML = statistics.Independents.loyal_votes;
-Total.innerHTML = statistics.Total;
-TotalPercentage.innerHTML = statistics.TotalPercentage;
+function print_Glance_Table() {
+  repAtt.innerHTML = statistics.Republicans.attendance;
+  repLoyal.innerHTML = statistics.Republicans.loyal_votes;
+  demAtt.innerHTML = statistics.Democrats.attendance;
+  demLoyal.innerHTML = statistics.Democrats.loyal_votes;
+  indAtt.innerHTML = statistics.Independents.attendance;
+  indLoyal.innerHTML = statistics.Independents.loyal_votes;
+  Total.innerHTML = statistics.Total;
+  TotalPercentage.innerHTML = statistics.TotalPercentage;
+}
 
 //Top Engaged Attendance HOUSE
 
-members.sort(compare);
 function compare(a, b) {
-  for (var i = 0; i < members.length; i++) {
+  for (var i = 0; i < myarr.length; i++) {
     if (a.missed_votes_pct < b.missed_votes_pct) {
       return -1;
     }
@@ -112,36 +152,36 @@ function compare(a, b) {
   }
 }
 
-console.log(members.sort(compare));
+function Top_Engaged_Attendace_House() {
+  myarr.sort(compare);
 
-var percentage = Math.round(members.length * 0.1);
-var mostEngaged = members.slice(0, percentage);
+  var percentage = Math.round(myarr.length * 0.1);
+  var mostEngaged = myarr.slice(0, percentage);
 
-for (var i = percentage; i < members.length; i++) {
-  if (
-    mostEngaged[mostEngaged.length - 1].missed_votes_pct ==
-    members[i].missed_votes_pct
-  ) {
-    mostEngaged.push(members[i]);
+  for (var i = percentage; i < myarr.length; i++) {
+    if (
+      mostEngaged[mostEngaged.length - 1].missed_votes_pct ==
+      myarr[i].missed_votes_pct
+    ) {
+      mostEngaged.push(myarr[i]);
+    }
   }
+
+  function Top(array) {
+    for (var i = 0; i < array.length; i++) {
+      var TopEngaged = {};
+
+      TopEngaged.name = array[i].first_name + " " + array[i].last_name;
+      TopEngaged.numOfMissedVotes = array[i].missed_votes;
+      TopEngaged.percentOfMissedVotes = array[i].missed_votes_pct;
+      statistics.TopEngaged.push(TopEngaged);
+    }
+  }
+
+  Top(mostEngaged);
 }
 
-console.log(mostEngaged);
-
-function Top(array) {
-  for (var i = 0; i < array.length; i++) {
-    var TopEngaged = {};
-
-    TopEngaged.name = array[i].first_name + " " + array[i].last_name;
-    TopEngaged.numOfMissedVotes = array[i].missed_votes;
-    TopEngaged.percentOfMissedVotes = array[i].missed_votes_pct;
-    statistics.TopEngaged.push(TopEngaged);
-  }
-}
-
-Top(mostEngaged);
-
-print2(statistics.TopEngaged, "most_engaged");
+//print2(statistics.TopEngaged, "most_engaged");
 
 function print2(array, id) {
   var tbody = document.getElementById(id);
@@ -157,33 +197,33 @@ function print2(array, id) {
 
 //Least Engaged Attendance House
 
-members.sort(compare).reverse();
-var leastEngaged = members.slice(0, percentage);
+function Least_Engaged_Attendance_House() {
+  myarr.sort(compare).reverse();
+  var percentage = Math.round(myarr.length * 0.1);
+  var leastEngaged = myarr.slice(0, percentage);
 
-console.log(leastEngaged);
-
-for (var i = percentage; i < members.length; i++) {
-  if (
-    leastEngaged[leastEngaged.length - 1].missed_votes_pct ==
-    members[i].missed_votes_pct
-  ) {
-    leastEngaged.push(members[i]);
+  for (var i = percentage; i < myarr.length; i++) {
+    if (
+      leastEngaged[leastEngaged.length - 1].missed_votes_pct ==
+      myarr[i].missed_votes_pct
+    ) {
+      leastEngaged.push(myarr[i]);
+    }
   }
-}
 
-function Bottom(array) {
-  for (var i = 0; i < array.length; i++) {
-    var notEngaged = {};
+  function Bottom(array) {
+    for (var i = 0; i < array.length; i++) {
+      var notEngaged = {};
 
-    notEngaged.name = array[i].first_name + " " + array[i].last_name;
-    notEngaged.numOfMissedVotes = array[i].missed_votes;
-    notEngaged.percentOfMissedVotes = array[i].missed_votes_pct;
-    statistics.BottomEngaged.push(notEngaged);
+      notEngaged.name = array[i].first_name + " " + array[i].last_name;
+      notEngaged.numOfMissedVotes = array[i].missed_votes;
+      notEngaged.percentOfMissedVotes = array[i].missed_votes_pct;
+      statistics.BottomEngaged.push(notEngaged);
+    }
   }
-}
 
-Bottom(leastEngaged);
-console.log(leastEngaged);
+  Bottom(leastEngaged);
+}
 
 function print2(array, id) {
   console.log(array);
@@ -199,4 +239,4 @@ function print2(array, id) {
   }
 }
 
-print2(statistics.BottomEngaged, "least_engaged");
+//print2(statistics.BottomEngaged, "least_engaged");
