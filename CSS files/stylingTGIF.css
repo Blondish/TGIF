@@ -73,7 +73,7 @@ div.col-lg-6 {
 /* SPINNER */
 
 #spinner {
-  visibility: hidden;
+  visibility: visible;
   width: 80px;
   height: 80px;
 
@@ -101,4 +101,8 @@ div.col-lg-6 {
 
 #spinner.show {
   visibility: visible;
+}
+
+#message {
+  display: none;
 }

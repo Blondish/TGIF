@@ -3,7 +3,7 @@
 var myarr;
 loadAll();
 function loadAll() {
-  showSpinner();
+  spinner.style.display = "block";
   fetch("https://api.propublica.org/congress/v1/113/senate/members.json?", {
     method: "GET",
     headers: {
@@ -18,11 +18,12 @@ function loadAll() {
       myarr = print.results[0].members;
       getNumberOfAttendance(myarr);
       getVotesWParty(myarr);
-      Top_Engaged_Attendace_Senate();
-      Least_Engaged_Attendance_Senate();
+      Top_Engaged_Attendance();
+      Least_Engaged_Attendance();
       print2(statistics.BottomEngaged, "least_engaged");
       print2(statistics.TopEngaged, "most_engaged");
       print_Glance_Table();
+      spinner.style.display = "none";
     })
     .catch(function(err) {
       console.log(err);
@@ -122,10 +123,10 @@ function getVotesWParty(array) {
     indAverage = 0;
   }
 
-  statistics.Republicans.loyal_votes = repAverage.toFixed(2);
-  statistics.Democrats.loyal_votes = demAverage.toFixed(2);
-  statistics.Independents.loyal_votes = indAverage.toFixed(2);
-  statistics.TotalPercentage = Average.toFixed(2);
+  statistics.Republicans.loyal_votes = repAverage.toFixed(2) + " %";
+  statistics.Democrats.loyal_votes = demAverage.toFixed(2) + " %";
+  statistics.Independents.loyal_votes = indAverage.toFixed(2) + " %";
+  statistics.TotalPercentage = Average.toFixed(2) + " %";
 }
 
 function print_Glance_Table() {
@@ -153,7 +154,7 @@ function compare(a, b) {
   }
 }
 
-function Top_Engaged_Attendace_Senate() {
+function Top_Engaged_Attendance() {
   myarr.sort(compare);
 
   var percentage = Math.round(myarr.length * 0.1);
@@ -190,7 +191,7 @@ function print2(array, id) {
     let row = document.createElement("tr");
     row.insertCell().innerHTML = array[i].name.link(array[i].url);
     row.insertCell().innerHTML = array[i].numOfMissedVotes;
-    row.insertCell().innerHTML = array[i].percentOfMissedVotes;
+    row.insertCell().innerHTML = array[i].percentOfMissedVotes + " %";
 
     tbody.append(row);
   }
@@ -198,7 +199,7 @@ function print2(array, id) {
 
 //Least Engaged Attendance Senate
 
-function Least_Engaged_Attendance_Senate() {
+function Least_Engaged_Attendance() {
   myarr.sort(compare).reverse();
   var percentage = Math.round(myarr.length * 0.1);
   var leastEngaged = myarr.slice(0, percentage);

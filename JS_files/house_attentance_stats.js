@@ -3,7 +3,7 @@
 var myarr;
 loadAll();
 function loadAll() {
-  showSpinner();
+  spinner.style.display = "block";
   fetch("https://api.propublica.org/congress/v1/113/house/members.json?", {
     method: "GET",
     headers: {
@@ -19,10 +19,11 @@ function loadAll() {
       getNumberOfAttendance(myarr);
       getVotesWParty(myarr);
       print_Glance_Table();
-      Top_Engaged_Attendace_House();
-      Least_Engaged_Attendance_House();
-      print2(statistics.TopEngaged, "most_engaged");
+      Top_Engaged_Attendance();
+      Least_Engaged_Attendance();
       print2(statistics.BottomEngaged, "least_engaged");
+      print2(statistics.TopEngaged, "most_engaged");
+      spinner.style.display = "none";
     })
     .catch(function(err) {
       console.log(err);
@@ -152,7 +153,7 @@ function compare(a, b) {
   }
 }
 
-function Top_Engaged_Attendace_House() {
+function Top_Engaged_Attendance() {
   myarr.sort(compare);
 
   var percentage = Math.round(myarr.length * 0.1);
@@ -197,7 +198,7 @@ function print2(array, id) {
 
 //Least Engaged Attendance House
 
-function Least_Engaged_Attendance_House() {
+function Least_Engaged_Attendance() {
   myarr.sort(compare).reverse();
   var percentage = Math.round(myarr.length * 0.1);
   var leastEngaged = myarr.slice(0, percentage);

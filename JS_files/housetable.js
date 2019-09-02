@@ -4,7 +4,7 @@ var myarr;
 
 loadAll();
 function loadAll() {
-  showSpinner();
+  spinner.style.display = "block";
   fetch("https://api.propublica.org/congress/v1/113/house/members.json?", {
     method: "GET",
     headers: {
@@ -19,6 +19,7 @@ function loadAll() {
       myarr = print.results[0].members;
       printTable(myarr, "house_data");
       createLabel();
+      spinner.style.display = "none";
     })
     .catch(function(err) {
       console.log(err);
@@ -40,30 +41,34 @@ function showSpinner() {
 function printTable(array, id) {
   var tbody = document.getElementById(id);
   tbody.innerHTML = "";
-  for (var i = 0; i < array.length; i++) {
-    let row = document.createElement("tr");
-    let nameCell = document.createElement("td");
-    let partyCell = document.createElement("td");
-    let stateCell = document.createElement("td");
-    let seniorCell = document.createElement("td");
-    let percCell = document.createElement("td");
-    var fullName = array[i].last_name + " " + array[i].first_name;
-    if (array[i].middle_name !== null) {
-      nameCell.innerHTML += " " + array[i].middle_name;
+  if (array.length === 0) {
+    document.getElementById("message").style.display = "block";
+  } else {
+    document.getElementById("message").style.display = "none";
+    for (var i = 0; i < array.length; i++) {
+      let row = document.createElement("tr");
+      let nameCell = document.createElement("td");
+      let partyCell = document.createElement("td");
+      let stateCell = document.createElement("td");
+      let seniorCell = document.createElement("td");
+      let percCell = document.createElement("td");
+      var fullName = array[i].last_name + " " + array[i].first_name;
+      if (array[i].middle_name !== null) {
+        nameCell.innerHTML += " " + array[i].middle_name;
+      }
+
+      nameCell.innerHTML = fullName.link(array[i].url);
+
+      partyCell.innerHTML = array[i].party;
+      stateCell.innerHTML = array[i].state;
+      seniorCell.innerHTML = array[i].seniority;
+      percCell.innerHTML = array[i].votes_with_party_pct + " %";
+
+      row.append(nameCell, partyCell, stateCell, seniorCell, percCell);
+      tbody.append(row);
     }
-
-    nameCell.innerHTML = fullName.link(array[i].url);
-
-    partyCell.innerHTML = array[i].party;
-    stateCell.innerHTML = array[i].state;
-    seniorCell.innerHTML = array[i].seniority;
-    percCell.innerHTML = array[i].votes_with_party_pct;
-
-    row.append(nameCell, partyCell, stateCell, seniorCell, percCell);
-    tbody.append(row);
   }
 }
-
 // CheckBoxes Filtes
 
 document.getElementById("repChecked").addEventListener("click", function() {
@@ -116,6 +121,9 @@ function checkedTable() {
       (selectedValue === "ALL" || selectedValue == myarr[i].state)
     ) {
       checkedArray.push(myarr[i]);
+    }
+    if (checkedArray.length === 0) {
+      document.getElementById("message").innerHTML = "No data to display";
     }
   }
   printTable(checkedArray, "house_data");
