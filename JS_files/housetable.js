@@ -17,7 +17,7 @@ function loadAll() {
     })
     .then(function(print) {
       myarr = print.results[0].members;
-      printTable(myarr, "house_data");
+      printTable(myarr, "data");
       createLabel();
       spinner.style.display = "none";
     })
@@ -126,7 +126,7 @@ function checkedTable() {
       document.getElementById("message").innerHTML = "No data to display";
     }
   }
-  printTable(checkedArray, "house_data");
+  printTable(checkedArray, "data");
 }
 
 //State Labels Creation

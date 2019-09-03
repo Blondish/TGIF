@@ -1,10 +1,18 @@
 //var members = data.results[0].members;
 
 var myarr;
+var url;
+
+if (window.location.pathname.includes("house")) {
+  url = "https://api.propublica.org/congress/v1/113/house/members.json?";
+} else {
+  url = "https://api.propublica.org/congress/v1/113/senate/members.json?";
+}
+
 loadAll();
 function loadAll() {
-  showSpinner();
-  fetch("https://api.propublica.org/congress/v1/113/senate/members.json?", {
+  spinner.style.display = "block";
+  fetch(url, {
     method: "GET",
     headers: {
       "X-API-Key": "ao9dys0RxhnQWbgv5iCTWrBcKV1l2C3VmgG1sUZV"
@@ -18,11 +26,12 @@ function loadAll() {
       myarr = print.results[0].members;
       getNumberOfAttendance(myarr);
       getVotesWParty(myarr);
-      Least_Loyal_Senate();
-      Most_Loyal_Senate();
+      print_Glance_Table();
+      Least_Loyal();
+      Most_Loyal();
       print2(statistics.LeastLoyal, "least_loyal");
       print2(statistics.MostLoyal, "most_loyal");
-      print_Glance_Table();
+      spinner.style.display = "none";
     })
     .catch(function(err) {
       console.log(err);
@@ -125,13 +134,13 @@ function getVotesWParty(array) {
 
 function print_Glance_Table() {
   repAtt.innerHTML = statistics.Republicans.attendance;
-  repLoyal.innerHTML = statistics.Republicans.loyal_votes;
+  repLoyal.innerHTML = statistics.Republicans.loyal_votes + " %";
   demAtt.innerHTML = statistics.Democrats.attendance;
-  demLoyal.innerHTML = statistics.Democrats.loyal_votes;
+  demLoyal.innerHTML = statistics.Democrats.loyal_votes + " %";
   indAtt.innerHTML = statistics.Independents.attendance;
-  indLoyal.innerHTML = statistics.Independents.loyal_votes;
+  indLoyal.innerHTML = statistics.Independents.loyal_votes + " %";
   Total.innerHTML = statistics.Total;
-  TotalPercentage.innerHTML = statistics.TotalPercentage;
+  TotalPercentage.innerHTML = statistics.TotalPercentage + " %";
 }
 
 // Least Loyal with Party
@@ -148,7 +157,7 @@ function compare(a, b) {
   }
 }
 
-function Least_Loyal_Senate() {
+function Least_Loyal() {
   myarr.sort(compare);
 
   var percentage = Math.round(myarr.length * 0.1);
@@ -185,13 +194,13 @@ function print2(array, id) {
     let row = document.createElement("tr");
     row.insertCell().innerHTML = array[i].name.link(array[i].url);
     row.insertCell().innerHTML = array[i].totalVotes;
-    row.insertCell().innerHTML = array[i].voteswithparty;
+    row.insertCell().innerHTML = array[i].voteswithparty + " %";
     tbody.append(row);
   }
 }
 // Most Loyal with Party
 
-function Most_Loyal_Senate() {
+function Most_Loyal() {
   myarr.sort(compare).reverse();
   var percentage = Math.round(myarr.length * 0.1);
   var mostLoyal = myarr.slice(0, percentage);

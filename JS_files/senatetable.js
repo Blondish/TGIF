@@ -1,9 +1,16 @@
 var myarr;
+var url;
+
+if (window.location.pathname.includes("house")) {
+  url = "https://api.propublica.org/congress/v1/113/house/members.json?";
+} else {
+  url = "https://api.propublica.org/congress/v1/113/senate/members.json?";
+}
 
 loadAll();
 function loadAll() {
   spinner.style.display = "block";
-  fetch("https://api.propublica.org/congress/v1/113/senate/members.json?", {
+  fetch(url, {
     method: "GET",
     headers: {
       "X-API-Key": "ao9dys0RxhnQWbgv5iCTWrBcKV1l2C3VmgG1sUZV"
@@ -15,7 +22,7 @@ function loadAll() {
     })
     .then(function(print) {
       myarr = print.results[0].members;
-      printTable(myarr, "senate_data");
+      printTable(myarr, "data");
       createLabel();
       spinner.style.display = "none";
     })
@@ -26,7 +33,7 @@ function loadAll() {
 
 function showSpinner() {
   var spinner = document.getElementById("spinner");
-  console.log(spinner);
+
   spinner.classList.add("show");
   setTimeout(() => {
     spinner.classList.remove("show");
@@ -124,7 +131,7 @@ function checkedTable() {
       checkedArray.push(myarr[i]);
     }
   }
-  printTable(checkedArray, "senate_data");
+  printTable(checkedArray, "data");
 }
 //State Labels Creation
 
@@ -143,6 +150,22 @@ function createLabel() {
     }
   }
   addState(stateOption);
+}
+
+//Read More/Less Button
+
+function toggleClass() {
+  if (!document.getElementById("btn1").classList.contains("hidden")) {
+    document.getElementById("btn2").classList.remove("hidden");
+    document.getElementById("btn2").classList.add("visible");
+    document.getElementById("btn1").classList.add("hidden");
+    document.getElementById("btn1").classList.remove("visible");
+  } else {
+    document.getElementById("btn1").classList.remove("hidden");
+    document.getElementById("btn1").classList.add("visible");
+    document.getElementById("btn2").classList.add("hidden");
+    document.getElementById("btn2").classList.remove("visible");
+  }
 }
 
 // function addState(array) {

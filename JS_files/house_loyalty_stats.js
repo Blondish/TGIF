@@ -3,7 +3,7 @@
 var myarr;
 loadAll();
 function loadAll() {
-  showSpinner();
+  spinner.style.display = "block";
   fetch("https://api.propublica.org/congress/v1/113/house/members.json?", {
     method: "GET",
     headers: {
@@ -18,11 +18,12 @@ function loadAll() {
       myarr = print.results[0].members;
       getNumberOfAttendance(myarr);
       getVotesWParty(myarr);
-      Least_Loyal_House();
-      Most_Loyal_House();
+      Least_Loyal();
+      Most_Loyal();
       print2(statistics.LeastLoyal, "least_loyal");
       print2(statistics.MostLoyal, "most_loyal");
       print_Glance_Table();
+      spinner.style.display = "none";
     })
     .catch(function(err) {
       console.log(err);
@@ -118,10 +119,10 @@ function getVotesWParty(array) {
   var Average = (repAverage + demAverage + indAverage) / 3;
   console.log(Average);
 
-  statistics.Republicans.loyal_votes = repAverage.toFixed(2);
-  statistics.Democrats.loyal_votes = demAverage.toFixed(2);
-  statistics.Independents.loyal_votes = indAverage.toFixed(2);
-  statistics.TotalPercentage = Average.toFixed(2);
+  statistics.Republicans.loyal_votes = repAverage.toFixed(2) + " %";
+  statistics.Democrats.loyal_votes = demAverage.toFixed(2) + " %";
+  statistics.Independents.loyal_votes = indAverage.toFixed(2) + " %";
+  statistics.TotalPercentage = Average.toFixed(2) + " %";
 }
 
 function print_Glance_Table() {
@@ -148,7 +149,7 @@ function compare(a, b) {
   }
 }
 
-function Least_Loyal_House() {
+function Least_Loyal() {
   myarr.sort(compare);
 
   var percentage = Math.round(myarr.length * 0.1);
@@ -185,13 +186,13 @@ function print2(array, id) {
     let row = document.createElement("tr");
     row.insertCell().innerHTML = array[i].name.link(array[i].url);
     row.insertCell().innerHTML = array[i].totalVotes;
-    row.insertCell().innerHTML = array[i].voteswithparty;
+    row.insertCell().innerHTML = array[i].voteswithparty + " %";
     tbody.append(row);
   }
 }
 // Most Loyal with Party
 
-function Most_Loyal_House() {
+function Most_Loyal() {
   myarr.sort(compare).reverse();
   var percentage = Math.round(myarr.length * 0.1);
   var mostLoyal = myarr.slice(0, percentage);

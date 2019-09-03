@@ -1,10 +1,18 @@
 //var myarr = data.results[0].myarr;
 
 var myarr;
+var url;
+
+if (window.location.pathname.includes("house")) {
+  url = "https://api.propublica.org/congress/v1/113/house/members.json";
+} else {
+  url = "https://api.propublica.org/congress/v1/113/senate/members.json";
+}
+
 loadAll();
 function loadAll() {
   spinner.style.display = "block";
-  fetch("https://api.propublica.org/congress/v1/113/house/members.json?", {
+  fetch(url, {
     method: "GET",
     headers: {
       "X-API-Key": "ao9dys0RxhnQWbgv5iCTWrBcKV1l2C3VmgG1sUZV"
@@ -95,14 +103,16 @@ function getVotesWParty(array) {
   var demVotes = [];
   var indVotes = [];
 
-  repSum = 0;
+  repSum = 0; //add percentages
   demSum = 0;
   indSum = 0;
 
   for (var i = 0; i < array.length; i++) {
     if (array[i].party == "R") {
       repVotes.push(array[i].votes_with_party_pct);
+      console.log(repVotes);
       repSum = repSum + array[i].votes_with_party_pct;
+      console.log(repSum);
     } else if (array[i].party == "D") {
       demVotes.push(array[i].votes_with_party_pct);
       demSum = demSum + array[i].votes_with_party_pct;
@@ -122,10 +132,10 @@ function getVotesWParty(array) {
 
   var Average = (repAverage + demAverage + indAverage) / 3;
 
-  statistics.Republicans.loyal_votes = repAverage.toFixed(2);
-  statistics.Democrats.loyal_votes = demAverage.toFixed(2);
-  statistics.Independents.loyal_votes = indAverage.toFixed(2);
-  statistics.TotalPercentage = Average.toFixed(2);
+  statistics.Republicans.loyal_votes = repAverage.toFixed(2) + " %";
+  statistics.Democrats.loyal_votes = demAverage.toFixed(2) + " %";
+  statistics.Independents.loyal_votes = indAverage.toFixed(2) + " %";
+  statistics.TotalPercentage = Average.toFixed(2) + " %";
 }
 
 function print_Glance_Table() {
@@ -227,14 +237,12 @@ function Least_Engaged_Attendance() {
 }
 
 function print2(array, id) {
-  console.log(array);
-
   var tbody = document.getElementById(id);
   for (var i = 0; i < array.length; i++) {
     let row = document.createElement("tr");
     row.insertCell().innerHTML = array[i].name.link(array[i].url);
     row.insertCell().innerHTML = array[i].numOfMissedVotes;
-    row.insertCell().innerHTML = array[i].percentOfMissedVotes;
+    row.insertCell().innerHTML = array[i].percentOfMissedVotes + " %";
 
     tbody.append(row);
   }
