@@ -38,18 +38,6 @@ function loadAll() {
     });
 }
 
-//spinner function
-
-function showSpinner() {
-  var spinner = document.getElementById("spinner");
-  console.log(spinner);
-  spinner.classList.add("show");
-  setTimeout(() => {
-    spinner.classList.remove("show");
-    // spinner.className = spinner.className.replace("show", "");
-  }, 2000);
-}
-
 //Object
 
 var statistics = {

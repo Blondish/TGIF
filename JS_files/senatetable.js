@@ -1,4 +1,4 @@
-var myarr;
+var myarr = [];
 var url;
 
 if (window.location.pathname.includes("house")) {
@@ -22,24 +22,23 @@ function loadAll() {
     })
     .then(function(print) {
       myarr = print.results[0].members;
-      printTable(myarr, "data");
       createLabel();
       spinner.style.display = "none";
+      eventListeners();
+      checkedTable();
     })
     .catch(function(err) {
       console.log(err);
     });
 }
 
-function showSpinner() {
-  var spinner = document.getElementById("spinner");
-
-  spinner.classList.add("show");
-  setTimeout(() => {
-    spinner.classList.remove("show");
-    // spinner.className = spinner.className.replace("show", "");
-  }, 2000);
-}
+// function showSpinner() {
+//   var spinner = document.getElementById("spinner");
+//   spinner.classList.add("show");
+//   setTimeout(() => {
+//     spinner.classList.remove("show");
+//   }, 2000);
+// }
 
 //printTable(myarr, "senate_data");
 
@@ -48,6 +47,7 @@ function showSpinner() {
 function printTable(array, id) {
   var tbody = document.getElementById(id);
   tbody.innerHTML = "";
+
   if (array.length === 0) {
     document.getElementById("message").style.display = "block";
   } else {
@@ -55,6 +55,7 @@ function printTable(array, id) {
 
     for (var i = 0; i < array.length; i++) {
       let row = document.createElement("tr");
+      let photoCell = document.createElement("td");
       let nameCell = document.createElement("td");
       let partyCell = document.createElement("td");
       let stateCell = document.createElement("td");
@@ -64,34 +65,48 @@ function printTable(array, id) {
       if (array[i].middle_name !== null) {
         fullName += " " + array[i].middle_name;
       }
-
+      photoCell.innerHTML =
+        '<img src="https://graph.facebook.com/' +
+        array[i].facebook_account +
+        '/picture">';
+      if (array[i].facebook_account == null) {
+        photoCell.innerHTML = "no photo";
+      }
       nameCell.innerHTML = fullName.link(array[i].url);
       partyCell.innerHTML = array[i].party;
       stateCell.innerHTML = array[i].state;
       seniorCell.innerHTML = array[i].seniority;
       percCell.innerHTML = array[i].votes_with_party_pct + " %";
 
-      row.append(nameCell, partyCell, stateCell, seniorCell, percCell);
+      row.append(
+        photoCell,
+        nameCell,
+        partyCell,
+        stateCell,
+        seniorCell,
+        percCell
+      );
       tbody.append(row);
     }
   }
 }
 
 // CheckBoxes Filtes
+function eventListeners() {
+  document.getElementById("repChecked").addEventListener("click", function() {
+    checkedTable();
+  });
+  document.getElementById("demChecked").addEventListener("click", function() {
+    checkedTable();
+  });
+  document.getElementById("indChecked").addEventListener("click", function() {
+    checkedTable();
+  });
 
-document.getElementById("repChecked").addEventListener("click", function() {
-  checkedTable();
-});
-document.getElementById("demChecked").addEventListener("click", function() {
-  checkedTable();
-});
-document.getElementById("indChecked").addEventListener("click", function() {
-  checkedTable();
-});
-
-document.querySelector("select").addEventListener("change", function() {
-  checkedTable();
-});
+  document.querySelector("select").addEventListener("change", function() {
+    checkedTable();
+  });
+}
 
 function checkedTable() {
   var checkedArray = [];
@@ -141,6 +156,7 @@ function createLabel() {
     if (!stateOption.includes(myarr[i].state)) stateOption.push(myarr[i].state);
   }
   stateOption.sort().unshift("ALL");
+
   function addState(array) {
     var select = document.querySelector("select");
     for (var i = 0; i < array.length; i++) {
@@ -167,16 +183,6 @@ function toggleClass() {
     document.getElementById("btn2").classList.remove("visible");
   }
 }
-
-// function addState(array) {
-//   var select = document.querySelector("select");
-//   for (var i = 0; i < array.length; i++) {
-//     let newOption = document.createElement("option");
-//     newOption.innerHTML = array[i];
-//     select.append(newOption);
-//   }
-// }
-// addState(stateOption);
 
 // print2(myarr, "senate_data");
 

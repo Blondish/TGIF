@@ -37,8 +37,9 @@ nav div {
 
 .navbar-brand,
 .navbar-default .navbar-nav > li > a {
-  color: #3b3e34;
-  font-size: 1.2em;
+  color: #3b3e34 !important;
+  font-size: 1.3em;
+  font-weight: 200;
 }
 
 p {
@@ -58,6 +59,7 @@ footer {
   margin-bottom: 0;
 }
 
+/* BUTTON */
 .hidden {
   display: none;
 }
@@ -99,10 +101,10 @@ div.col-lg-6 {
   }
 }
 
-#spinner.show {
-  visibility: visible;
-}
-
 #message {
   display: none;
+}
+
+#hideonLoader {
+  display: block;
 }
